@@ -3,6 +3,7 @@ var uuid = require('uuid');
 var basicAuth = require('basic-auth');
 var Analytics = require('analytics-node');
 var nuts = require('../');
+require('dotenv').config()
 
 var app = express();
 
