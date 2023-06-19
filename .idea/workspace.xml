@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="caffeda7-9729-43d4-8217-06e09f39db12" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/web.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/web.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/deploy.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/deploy.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/github.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/github.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1687203360266</updated>
       <workItem from="1687203361749" duration="1660000" />
-      <workItem from="1687205053204" duration="265000" />
+      <workItem from="1687205053204" duration="591000" />
     </task>
     <servers />
   </component>

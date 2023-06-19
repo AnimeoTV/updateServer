@@ -1,6 +1,6 @@
 # Deployment
 
-Nuts can be easily be deployed to a state-less server or PaaS. It only uses the disk as a cache for assets.
+Nuts can easily be deployed to a state-less server or PaaS. It only uses the disk as a cache for assets.
 
 ### On Heroku:
 
@@ -24,7 +24,7 @@ Install dependencies using:
 $ npm install
 ```
 
-This service requires to be configured using environment variables: you'll need to copy the .env.example file to .env and fill the variables.
+The service requires to be configured using environment variables: you'll need to copy the .env.example file to .env and fill the variables.
 
 Then start the application using:
 
