@@ -31,7 +31,7 @@ It uses GitHub as a backend to store assets, and it can easily be deployed to He
 
 #### Deploy it / Start it
 
-[Follow our guide to deploy Nuts](https://nuts.gitbook.com/deploy.html).
+[Follow our guide to deploy Nuts](docs/deploy.md).
 
 
 #### Auto-updater / Squirrel
@@ -40,4 +40,4 @@ This server provides an endpoint for [Squirrel auto-updater](https://github.com/
 
 #### Documentation
 
-[Check out the documentation](https://nuts.gitbook.com) for more details.
+[Check out the documentation](docs/README.md) for more details.
