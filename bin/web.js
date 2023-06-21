@@ -1,21 +1,21 @@
-var express = require("express");
-var uuid = require("uuid");
-var basicAuth = require("basic-auth");
-var Analytics = require("analytics-node");
-var nuts = require("../");
-require("dotenv").config();
+var express = require("express")
+var uuid = require("uuid")
+var basicAuth = require("basic-auth")
+var Analytics = require("analytics-node")
+var nuts = require("../")
+require("dotenv").config()
 
-var app = express();
+var app = express()
 
 var apiAuth = {
   username: process.env.API_USERNAME,
   password: process.env.API_PASSWORD,
-};
+}
 
-var analytics = undefined;
-var downloadEvent = process.env.ANALYTICS_EVENT_DOWNLOAD || "download";
+var analytics = undefined
+var downloadEvent = process.env.ANALYTICS_EVENT_DOWNLOAD || "download"
 if (process.env.ANALYTICS_TOKEN) {
-  analytics = new Analytics(process.env.ANALYTICS_TOKEN);
+  analytics = new Analytics(process.env.ANALYTICS_TOKEN)
 }
 
 var myNuts = nuts.Nuts({
@@ -29,27 +29,27 @@ var myNuts = nuts.Nuts({
   cache: process.env.VERSIONS_CACHE,
   refreshSecret: process.env.GITHUB_SECRET,
   proxyAssets: !Boolean(process.env.DONT_PROXY_ASSETS),
-});
+})
 
 // Control access to API
 myNuts.before("api", function (access, next) {
-  if (!apiAuth.username) return next();
+  if (!apiAuth.username) return next()
 
   function unauthorized() {
-    next(new Error("Invalid username/password for API"));
+    next(new Error("Invalid username/password for API"))
   }
 
-  var user = basicAuth(access.req);
+  var user = basicAuth(access.req)
   if (!user || !user.name || !user.pass) {
-    return unauthorized();
+    return unauthorized()
   }
 
   if (user.name === apiAuth.username && user.pass === apiAuth.password) {
-    return next();
+    return next()
   } else {
-    return unauthorized();
+    return unauthorized()
   }
-});
+})
 
 // Log download
 myNuts.before("download", function (download, next) {
@@ -61,11 +61,11 @@ myNuts.before("download", function (download, next) {
     "on channel",
     download.version.channel,
     "for",
-    download.platform.type
-  );
+    download.platform.type,
+  )
 
-  next();
-});
+  next()
+})
 myNuts.after("download", function (download, next) {
   console.log(
     "downloaded",
@@ -75,12 +75,12 @@ myNuts.after("download", function (download, next) {
     "on channel",
     download.version.channel,
     "for",
-    download.platform.type
-  );
+    download.platform.type,
+  )
 
   // Track on segment if enabled
   if (analytics) {
-    var userId = download.req.query.user;
+    var userId = download.req.query.user
 
     analytics.track({
       event: downloadEvent,
@@ -92,49 +92,49 @@ myNuts.after("download", function (download, next) {
         platform: download.platform.type,
         os: nuts.platforms.toType(download.platform.type),
       },
-    });
+    })
   }
 
-  next();
-});
+  next()
+})
 
 if (process.env.TRUST_PROXY) {
   try {
-    var trustProxyObject = JSON.parse(process.env.TRUST_PROXY);
-    app.set("trust proxy", trustProxyObject);
+    var trustProxyObject = JSON.parse(process.env.TRUST_PROXY)
+    app.set("trust proxy", trustProxyObject)
   } catch (e) {
-    app.set("trust proxy", process.env.TRUST_PROXY);
+    app.set("trust proxy", process.env.TRUST_PROXY)
   }
 }
 
-app.use(myNuts.router);
+app.use(myNuts.router)
 
 // Error handling
 app.use(function (req, res, next) {
-  res.status(404).send("Page not found");
-});
+  res.status(404).send("Page not found")
+})
 app.use(function (err, req, res, next) {
-  var msg = err.message || err;
-  var code = 500;
+  var msg = err.message || err
+  var code = 500
 
-  console.error(err.stack || err);
+  console.error(err.stack || err)
 
   // Return error
   res.format({
     "text/plain": function () {
-      res.status(code).send(msg);
+      res.status(code).send(msg)
     },
     "text/html": function () {
-      res.status(code).send(msg);
+      res.status(code).send(msg)
     },
     "application/json": function () {
       res.status(code).send({
         error: msg,
         code: code,
-      });
+      })
     },
-  });
-});
+  })
+})
 
 myNuts
   .init()
@@ -143,14 +143,14 @@ myNuts
   .then(
     function () {
       var server = app.listen(process.env.PORT || 5000, function () {
-        var host = server.address().address;
-        var port = server.address().port;
+        var host = server.address().address
+        var port = server.address().port
 
-        console.log("Listening at http://%s:%s", host, port);
-      });
+        console.log("Listening at http://%s:%s", host, port)
+      })
     },
     function (err) {
-      console.log(err.stack || err);
-      process.exit(1);
-    }
-  );
+      console.log(err.stack || err)
+      process.exit(1)
+    },
+  )
