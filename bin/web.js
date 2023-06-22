@@ -18,6 +18,37 @@ if (process.env.ANALYTICS_TOKEN) {
   analytics = new Analytics(process.env.ANALYTICS_TOKEN)
 }
 
+// Set up for https termination
+var key = "",
+  cert = ""
+
+if (process.env.HTTPS_KEYFILE !== "undefined") {
+  try {
+    key = fs.readFileSync(process.env.HTTPS_KEYFILE)
+  } catch (e) {
+    if (e.code === "ENOENT") {
+      console.log("Key file not found!")
+    } else {
+      throw e
+    }
+  }
+}
+if (process.env.HTTPS_CERTFILE !== "undefined") {
+  try {
+    cert = fs.readFileSync(process.env.HTTPS_CERTFILE)
+  } catch (e) {
+    if (e.code === "ENOENT") {
+      console.log("Certificate file not found!")
+    } else {
+      throw e
+    }
+  }
+}
+var https_options = {
+  key: key,
+  cert: cert,
+}
+
 var myNuts = nuts.Nuts({
   routePrefix: process.env.ROUTE_PREFIX,
   repository: process.env.GITHUB_REPO,
@@ -124,9 +155,21 @@ app.use(function (err, req, res, next) {
 myNuts
   .init()
 
-  // Start the HTTP server
+  // Start the HTTP and/or HTTPS server
   .then(
     function () {
+      // Enable https endpoint if key and cert are set
+      if (key != "" && cert != "") {
+        var https_server = https
+          .createServer(https_options, app)
+          .listen(process.env.HTTPSPORT || 5001, function () {
+            var hosts = https_server.address().address
+            var ports = https_server.address().port
+
+            console.log("Listening at https://%s:%s", hosts, ports)
+          })
+      }
+
       var server = app.listen(process.env.PORT || 5000, function () {
         var host = server.address().address
         var port = server.address().port
