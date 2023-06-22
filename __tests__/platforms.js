@@ -52,6 +52,18 @@ describe("Platforms", function () {
       )
     })
 
+    test("should detect AppImage_32", function () {
+      expect(platforms.detect("appimaged-i686.AppImage")).toEqual(
+        platforms.LINUX_APPIMAGE_32,
+      )
+    })
+
+    test("should detect AppImage_64", function () {
+      expect(platforms.detect("appimaged-x86_64.AppImage")).toEqual(
+        platforms.LINUX_APPIMAGE_64,
+      )
+    })
+
     test("should detect debian_32", function () {
       expect(platforms.detect("atom-ia32.deb")).toEqual(platforms.LINUX_DEB_32)
     })
@@ -120,6 +132,24 @@ describe("Platforms", function () {
             download_url:
               "https://api.github.com/repos/atom/atom/releases/assets/825658",
             download_count: 2494,
+          },
+          {
+            type: "linux_AppImage_32",
+            filename: "appimaged-i686.AppImage",
+            size: 244728,
+            content_type: "application/octet-stream",
+            download_url:
+              "https://api.github.com/repos/AppImage/AppImageKit/releases/assets/5295931",
+            download_count: 55,
+          },
+          {
+            type: "linux_AppImage_64",
+            filename: "appimaged-x86_64.AppImage",
+            size: 244728,
+            content_type: "application/octet-stream",
+            download_url:
+              "https://api.github.com/repos/AppImage/AppImageKit/releases/assets/5295938",
+            download_count: 55,
           },
           {
             type: "linux_rpm_32",
@@ -194,6 +224,13 @@ describe("Platforms", function () {
         expect(platforms.resolve(version, "linux_rpm_32").filename).toEqual(
           "atom-ia32.rpm",
         )
+        expect(
+          platforms.resolve(version, "linux_AppImage_32").filename,
+        ).toEqual("appimaged-i686.AppImage")
+
+        expect(
+          platforms.resolve(version, "linux_AppImage_64").filename,
+        ).toEqual("appimaged-x86_64.AppImage")
         expect(platforms.resolve(version, "linux_rpm_64").filename).toEqual(
           "atom-amd64.rpm",
         )
