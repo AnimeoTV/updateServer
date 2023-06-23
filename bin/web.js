@@ -72,6 +72,7 @@ var myNuts = nuts.Nuts({
   timeout: process.env.VERSIONS_TIMEOUT,
   cache: process.env.VERSIONS_CACHE,
   refreshSecret: process.env.GITHUB_SECRET,
+  maxVersion: process.env.NUTS_MAX_VERSION,
   proxyAssets: process.env.DONT_PROXY_ASSETS !== "true",
 })
 
