@@ -17,6 +17,7 @@ describe("Platforms", function () {
       expect(platforms.detect("atom-1.0.9-delta.nupkg")).toEqual(
         platforms.WINDOWS_32,
       )
+      expect(platforms.detect("TestSetup.msi")).toEqual(platforms.WINDOWS_32)
       expect(platforms.detect("RELEASES")).toEqual(platforms.WINDOWS_32)
     })
 
@@ -205,6 +206,15 @@ describe("Platforms", function () {
               "https://api.github.com/repos/atom/atom/releases/assets/825728",
             download_count: 5612,
           },
+          {
+            type: "windows_32",
+            filename: "TestSetup.msi",
+            size: 78675700,
+            content_type: "application/x-msi",
+            download_url:
+              "https://api.github.com/repos/test/test2/releases/assets/7938398",
+            download_count: 1,
+          },
         ],
       }
 
@@ -248,6 +258,12 @@ describe("Platforms", function () {
             filePreference: [".zip"],
           }).filename,
         ).toEqual("test-3.3.1-darwin-x64.zip")
+
+        expect(
+          platforms.resolve(version, "win32", {
+            filePreference: [".msi"],
+          }).filename,
+        ).toEqual("TestSetup.msi")
       })
 
       test("should resolve to best platform with a wanted filetype", function () {

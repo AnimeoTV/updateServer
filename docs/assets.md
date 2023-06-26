@@ -19,8 +19,8 @@ By default releases are tagged as 32-bits (except for OSX), but 64-bits will als
 Filetype and usage will be detected from the extension:
 
 | Platform | Extensions (sorted by priority)     |
-| -------- | ----------------------------------- |
-| Windows  | `.exe`, `.nupkg`, `.zip`            |
+|----------|-------------------------------------|
+| Windows  | `.exe`, `.nupkg`, `.zip`, `.msi`    |
 | OS X     | `.dmg`, `.zip`                      |
 | Linux    | `.AppImage`, `.deb`, `.rpm`, `.zip` |
 
