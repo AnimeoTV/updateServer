@@ -17,7 +17,6 @@ describe("Update", function () {
           .get("/update/osx/0.9.0")
           .expect("Content-Type", /json/)
           .expect(function (res) {
-            console.log(res)
             expect(res.body.name).toBe("1.0.0")
             expect(res.body.url).toBeTruthy()
             expect(res.body.pub_date).toBeTruthy()

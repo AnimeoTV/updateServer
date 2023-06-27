@@ -14,15 +14,15 @@ describe("Platforms", function () {
       expect(platforms.detect("myapp-v0.25.1-win32-ia32.zip")).toEqual(
         platforms.WINDOWS_32,
       )
-      expect(platforms.detect("atom-1.0.9-delta.nupkg")).toEqual(
-        platforms.WINDOWS_32,
-      )
-      expect(platforms.detect("TestSetup.msi")).toEqual(platforms.WINDOWS_32)
-      expect(platforms.detect("RELEASES")).toEqual(platforms.WINDOWS_32)
     })
 
     test("should detect windows_64", function () {
       expect(platforms.detect("MyApp-x64.exe")).toEqual(platforms.WINDOWS_64)
+      expect(platforms.detect("atom-1.0.9-delta.nupkg")).toEqual(
+        platforms.WINDOWS_64,
+      )
+      expect(platforms.detect("TestSetup.msi")).toEqual(platforms.WINDOWS_64)
+      expect(platforms.detect("RELEASES")).toEqual(platforms.WINDOWS_64)
       var chrome = useragent.parse(
         "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36",
       )
@@ -99,7 +99,7 @@ describe("Platforms", function () {
             download_count: 0,
           },
           {
-            type: "windows_32",
+            type: "windows_64",
             filename: "atom-1.0.9-delta.nupkg",
             size: 1457531,
             content_type: "application/zip",
@@ -108,7 +108,7 @@ describe("Platforms", function () {
             download_count: 55844,
           },
           {
-            type: "windows_32",
+            type: "windows_64",
             filename: "atom-1.0.9-full.nupkg",
             size: 78181725,
             content_type: "application/zip",
@@ -189,7 +189,7 @@ describe("Platforms", function () {
             download_count: 2494,
           },
           {
-            type: "windows_32",
+            type: "windows_64",
             filename: "atom-windows.zip",
             size: 79815714,
             content_type: "application/zip",
@@ -198,7 +198,7 @@ describe("Platforms", function () {
             download_count: 463,
           },
           {
-            type: "windows_32",
+            type: "windows_64",
             filename: "AtomSetup.exe",
             size: 78675720,
             content_type: "application/zip",
@@ -207,7 +207,7 @@ describe("Platforms", function () {
             download_count: 5612,
           },
           {
-            type: "windows_32",
+            type: "windows_64",
             filename: "TestSetup.msi",
             size: 78675700,
             content_type: "application/x-msi",

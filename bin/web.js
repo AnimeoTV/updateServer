@@ -3,6 +3,8 @@ var uuid = require("uuid")
 var basicAuth = require("basic-auth")
 var Analytics = require("analytics-node")
 var nuts = require("../")
+var fs = require("fs")
+var https = require("https")
 require("dotenv").config()
 
 var app = express()
@@ -22,7 +24,7 @@ if (process.env.ANALYTICS_TOKEN) {
 var key = "",
   cert = ""
 
-if (process.env.HTTPS_KEYFILE !== "undefined") {
+if (process.env.HTTPS_KEYFILE !== undefined) {
   try {
     key = fs.readFileSync(process.env.HTTPS_KEYFILE)
   } catch (e) {
@@ -33,7 +35,7 @@ if (process.env.HTTPS_KEYFILE !== "undefined") {
     }
   }
 }
-if (process.env.HTTPS_CERTFILE !== "undefined") {
+if (process.env.HTTPS_CERTFILE !== undefined) {
   try {
     cert = fs.readFileSync(process.env.HTTPS_CERTFILE)
   } catch (e) {
